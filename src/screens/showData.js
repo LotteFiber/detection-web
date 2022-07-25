@@ -194,11 +194,11 @@ function ShowData() {
       },
     },
     {
-      title: "รูปภาพ",
+      title: "image",
       dataIndex: "image",
       key: "image",
       render: (res, record) => {
-        // console.log(record)
+        console.log("TEST RECORD", record.path_image);
         const data = record.path_image;
         const upload_by = record.upload_by;
         if (upload_by === "video") {
@@ -230,6 +230,18 @@ function ShowData() {
               target="_blank"
               rel="noopener noreferrer"
               href={`${url}/api/data/uploadbyweb/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "app") {
+          console.log("TEST => ", data);
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/uploadbyapp/${str}`}
             >
               ดูตัวอย่าง
             </a>
@@ -835,10 +847,10 @@ function ShowData() {
         <div className="nu-data-table">
           <Table
             className="nu-data-table-table"
-            pagination={{ pageSize: 8 }}
             columns={columns}
             dataSource={filteredData}
-            rowKey="student_id"
+            pagination={{ pageSize: 10 }}
+            rowKey="number"
           />
         </div>
       </div>

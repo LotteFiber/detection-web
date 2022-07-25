@@ -1,7 +1,7 @@
 import React from "react";
-import moment from 'moment';
-import { url } from "../key"
-import { Button, Tag } from "antd"
+import moment from "moment";
+import { url } from "../key";
+import { Button, Tag } from "antd";
 import {
   CheckCircleOutlined,
   SyncOutlined,
@@ -9,7 +9,7 @@ import {
   ExclamationCircleOutlined,
   ClockCircleOutlined,
   MinusCircleOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
 export const columns = [
   {
@@ -55,9 +55,7 @@ export const columns = [
     dataIndex: "date",
     key: "date",
     render: (text, record, index) => (
-      <>
-        {moment(record.date_data).format('L')}
-      </>
+      <>{moment(record.date_data).format("L")}</>
     ),
   },
   {
@@ -71,32 +69,54 @@ export const columns = [
     ),
   },
   {
-    title: "รูปภาพ",
+    title: "image",
     dataIndex: "image",
     key: "image",
     render: (res, record) => {
-      console.log(record)
-      const data = record.path_image
-      const upload_by = record.upload_by
-      var str = data.replaceAll("/", "-")
+      console.log(record);
+      const data = record.path_image;
+      const upload_by = record.upload_by;
+      var str = data.replaceAll("/", "-");
       if (upload_by === "video") {
-        return <a target="_blank" href={`${url}/api/data/${str}`} >ดูตัวอย่าง</a>
+        return (
+          <a target="_blank" href={`${url}/api/data/${str}`}>
+            ดูตัวอย่าง
+          </a>
+        );
       } else if (upload_by === "image") {
-        return <a target="_blank" href={`${url}/api/data/image/${str}`} >ดูตัวอย่าง</a>
+        return (
+          <a target="_blank" href={`${url}/api/data/image/${str}`}>
+            ดูตัวอย่าง
+          </a>
+        );
+      } else if (upload_by === "web") {
+        return (
+          <a target="_blank" href={`${url}/api/data/uploadbyweb/${str}`}>
+            ดูตัวอย่าง
+          </a>
+        );
+      } else if (upload_by === "app") {
+        return (
+          <a target="_blank" href={`${url}/api/data/uploadbyapp/${str}`}>
+            ดูตัวอย่าง
+          </a>
+        );
       }
-    }
+    },
   },
   {
     title: "ฟังก์ชัน",
     dataIndex: "Function",
     key: "Function",
     render: (res, record) => {
-      return <>
-        <Button type="dashed" >แก้ไข</Button>
-        <Button type="primary" style={{ marginLeft: 5 }}>ยืนยัน</Button>
-      </>
-    }
+      return (
+        <>
+          <Button type="dashed">แก้ไข</Button>
+          <Button type="primary" style={{ marginLeft: 5 }}>
+            ยืนยัน
+          </Button>
+        </>
+      );
+    },
   },
 ];
-
-

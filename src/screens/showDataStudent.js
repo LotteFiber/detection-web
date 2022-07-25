@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Select, message, Modal, Spin, notification } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Select,
+  message,
+  Modal,
+  Spin,
+  notification,
+} from "antd";
 import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import LoadingComponent from "../components/loading";
 import {
@@ -11,8 +20,7 @@ import {
 import DrawerComponent from "../components/drawer";
 // import ReactFileReader from 'react-file-reader';
 // import utf8 from "utf8"
-import { uploadCSV } from "../function/uploadData"
-
+import { uploadCSV } from "../function/uploadData";
 
 const { confirm } = Modal;
 
@@ -157,7 +165,7 @@ function ShowDataStudent() {
     var result = await getDataStudent();
     await console.log("loading", result.data);
     await setData_Student(result.data);
-    setFilteredData(result.data)
+    setFilteredData(result.data);
     await setisLoading(true);
   };
 
@@ -238,90 +246,88 @@ function ShowDataStudent() {
     }
   };
 
-  const openNotificationNofileError = type => {
+  const openNotificationNofileError = (type) => {
     notification[type]({
-      message: 'กรุณาเพิ่มไฟล์',
-      description:
-        'ไม่พบไฟล์ที่ต้องการอัพโหลด',
+      message: "กรุณาเพิ่มไฟล์",
+      description: "ไม่พบไฟล์ที่ต้องการอัพโหลด",
     });
   };
 
-  const openNotificationSucess = type => {
+  const openNotificationSucess = (type) => {
     notification[type]({
-      message: 'อัพโหลดสำเร็จ',
-      description:
-        'ตอนนี้เก็บข้อมูลแล้ว',
+      message: "อัพโหลดสำเร็จ",
+      description: "ตอนนี้เก็บข้อมูลแล้ว",
     });
   };
 
-  const openNotificationError = type => {
+  const openNotificationError = (type) => {
     notification[type]({
-      message: 'อัพโหลดไม่สำเร็จ',
+      message: "อัพโหลดไม่สำเร็จ",
       description:
-        'มีปัญหาเกิดขึ้นเกี่ยวกับการอัพกรุณาตรวจสอบไฟล์ว่าถูกต้องไหม',
+        "มีปัญหาเกิดขึ้นเกี่ยวกับการอัพกรุณาตรวจสอบไฟล์ว่าถูกต้องไหม",
     });
   };
 
   const uploadHandles = async () => {
     if (!loading) {
-      setLoading(true)
+      setLoading(true);
       if (!fileUpload) {
         setLoading(false);
         openNotificationNofileError("error");
-        return console.log("ไม่มีไฟล์")
+        return console.log("ไม่มีไฟล์");
       }
       const result = await uploadCSV(fileUpload);
-      console.log(result)
+      console.log(result);
       if (result.status === 200) {
         setLoading(false);
         setVisibleCSV(false);
-        openNotificationSucess('success');
+        openNotificationSucess("success");
       } else {
         setLoading(false);
         setVisibleCSV(false);
-        openNotificationError('error');
+        openNotificationError("error");
       }
     }
-  }
+  };
 
   const handleSearchName = (event) => {
     let value = event.target.value.toLowerCase();
-    console.log("TEST=>", value)
+    console.log("TEST=>", value);
     let result = [];
     let result1 = [];
     let result2 = [];
     let result3 = [];
     // console.log(value);
-    let dataforfilter = data_Student
+    let dataforfilter = data_Student;
     result = dataforfilter.filter((datas) => {
       return datas.first_name.search(value) !== -1;
     });
     result1 = result.filter((datas) => {
       return datas.faculty.search(searchFaculty) !== -1;
     });
-    console.log("result1", result1)
+    console.log("result1", result1);
     result2 = result1.filter((datas) => {
-      let student_result = datas.student_id
-      student_result = student_result.slice(0, 2)
+      let student_result = datas.student_id;
+      student_result = student_result.slice(0, 2);
       return student_result.search(searchYear) !== -1;
     });
     result3 = result2.filter((datas) => {
       return datas.student_id.search(searchId_student) !== -1;
     });
-    console.log("result3", result3)
-    setSearchName(value)
+    console.log("result3", result3);
+    setSearchName(value);
     setFilteredData(result3);
-  }
+  };
 
   const handleSearchFaculty = (event) => {
     let value = event.toLowerCase();
-    console.log("TEST=>", value)
+    console.log("TEST=>", value);
     let result = [];
     let result1 = [];
     let result2 = [];
     let result3 = [];
     // console.log(value);
-    let dataforfilter = data_Student
+    let dataforfilter = data_Student;
     result = dataforfilter.filter((datas) => {
       return datas.faculty.search(value) !== -1;
     });
@@ -329,29 +335,29 @@ function ShowDataStudent() {
       return datas.first_name.search(searchName) !== -1;
     });
     result2 = result1.filter((datas) => {
-      let student_result = datas.student_id
-      student_result = student_result.slice(0, 2)
+      let student_result = datas.student_id;
+      student_result = student_result.slice(0, 2);
       return student_result.search(searchYear) !== -1;
     });
     result3 = result2.filter((datas) => {
       return datas.student_id.search(searchId_student) !== -1;
     });
-    console.log("result3", result3)
-    setSearchFaculty(value)
+    console.log("result3", result3);
+    setSearchFaculty(value);
     setFilteredData(result3);
-  }
+  };
 
   const handleSearchYear = (event) => {
     let value = event.toLowerCase();
-    console.log("TEST=>", value)
+    console.log("TEST=>", value);
     let result = [];
     let result1 = [];
     let result2 = [];
     let result3 = [];
-    let dataforfilter = data_Student
+    let dataforfilter = data_Student;
     result = dataforfilter.filter((datas) => {
-      let student_result = datas.student_id
-      student_result = student_result.slice(0, 2)
+      let student_result = datas.student_id;
+      student_result = student_result.slice(0, 2);
       return student_result.search(value) !== -1;
     });
     result1 = result.filter((datas) => {
@@ -363,19 +369,19 @@ function ShowDataStudent() {
     result3 = result2.filter((datas) => {
       return datas.student_id.search(searchId_student) !== -1;
     });
-    console.log("result3", result3)
-    setSearchYear(value)
+    console.log("result3", result3);
+    setSearchYear(value);
     setFilteredData(result3);
-  }
+  };
 
   const handleSearchStudentID = (event) => {
-    let value = event.target.value.toLowerCase()
-    console.log("TEST=>", value)
+    let value = event.target.value.toLowerCase();
+    console.log("TEST=>", value);
     let result = [];
     let result1 = [];
     let result2 = [];
     let result3 = [];
-    let dataforfilter = data_Student
+    let dataforfilter = data_Student;
     result = dataforfilter.filter((datas) => {
       return datas.student_id.search(value) !== -1;
     });
@@ -386,14 +392,14 @@ function ShowDataStudent() {
       return datas.faculty.search(searchFaculty) !== -1;
     });
     result3 = result2.filter((datas) => {
-      let student_result = datas.student_id
-      student_result = student_result.slice(0, 2)
+      let student_result = datas.student_id;
+      student_result = student_result.slice(0, 2);
       return student_result.search(searchYear) !== -1;
     });
-    console.log("result3", result3)
-    setSearchId_student(value)
+    console.log("result3", result3);
+    setSearchId_student(value);
     setFilteredData(result3);
-  }
+  };
 
   if (isLoading) {
     return (
@@ -457,7 +463,7 @@ function ShowDataStudent() {
               style={{ marginRight: 5 }}
             >
               เพิ่มข้อมูล
-          </Button>
+            </Button>
             <Button
               type="primary"
               shape="round"
@@ -466,19 +472,24 @@ function ShowDataStudent() {
               onClick={() => setVisibleCSV(true)}
             >
               CSV File
-              </Button>
+            </Button>
             <Modal
               title="อัพโหลดไฟล์ CSV"
               centered
               visible={visibleCSV}
               onOk={uploadHandles}
-              onCancel={() => loading ? null : setVisibleCSV(false)}
+              onCancel={() => (loading ? null : setVisibleCSV(false))}
               width={1000}
-              cancelText={loading ? 'กำลังอัพโหลด' : 'ย้อนกลับ'}
-              okText={loading ? 'กำลังอัพโหลด' : 'อัพโหลด'}
+              cancelText={loading ? "กำลังอัพโหลด" : "ย้อนกลับ"}
+              okText={loading ? "กำลังอัพโหลด" : "อัพโหลด"}
             >
               <Spin spinning={loading} tip="กำลังอัพโหลด กรุณาห้ามกดออก">
-                <input type="file" id="myFile" name="filename" onChange={(e) => setFileUpload(e.target.files[0])} />
+                <input
+                  type="file"
+                  id="myFile"
+                  name="filename"
+                  onChange={(e) => setFileUpload(e.target.files[0])}
+                />
               </Spin>
             </Modal>
           </div>
@@ -520,12 +531,16 @@ function ShowDataStudent() {
                 <Option value="แพทยศาสตร์">คณะแพทยศาสตร์</Option>
                 <Option value="พยาบาลศาสตร์">คณะพยาบาลศาสตร์</Option>
                 <Option value="เภสัชศาสตร์">คณะเภสัชศาสตร์</Option>
-                <Option value="วิทยาศาสตร์การแพทย์">คณะวิทยาศาสตร์การแพทย์</Option>
+                <Option value="วิทยาศาสตร์การแพทย์">
+                  คณะวิทยาศาสตร์การแพทย์
+                </Option>
                 <Option value="สหเวชศาสตร์">คณะสหเวชศาสตร์</Option>
                 <Option value="สาธารณสุขศาสตร์">คณะสาธารณสุขศาสตร์</Option>
                 <Option value="มนุษยศาสตร์">คณะมนุษยศาสตร์</Option>
                 <Option value="นิติศาสตร์">คณะนิติศาสตร์</Option>
-                <Option value="บริหารธุรกิจ">คณะบริหารธุรกิจ เศรษฐศาสตร์และการสื่อสาร</Option>
+                <Option value="บริหารธุรกิจ">
+                  คณะบริหารธุรกิจ เศรษฐศาสตร์และการสื่อสาร
+                </Option>
                 <Option value="ศึกษาศาสตร์">คณะศึกษาศาสตร์</Option>
                 <Option value="สังคมศาสตร์">คณะสังคมศาสตร์</Option>
                 <Option value="วิทยาลัยนานาชาติ">วิทยาลัยนานาชาติ</Option>
@@ -538,7 +553,9 @@ function ShowDataStudent() {
                 style={{ width: 100 }}
                 placeholder="รหัสชั้นปี"
                 optionFilterProp="children"
-                onChange={(event) => { handleSearchYear(event) }}
+                onChange={(event) => {
+                  handleSearchYear(event);
+                }}
               >
                 <Option value="">-ไม่ระบุ-</Option>
                 <Option value="70">70</Option>
@@ -566,16 +583,15 @@ function ShowDataStudent() {
             className="nu-data-table-table"
             columns={columns}
             dataSource={filteredData}
-            pagination={{ pageSize: 7 }}
+            pagination={{ pageSize: 10 }}
             rowKey="student_id"
           />
         </div>
       </div>
     );
   } else {
-    return null
+    return null;
   }
-
 }
 
 export default ShowDataStudent;

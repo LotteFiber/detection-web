@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import uuid from "react-uuid";
 import {
   Table,
   Input,
@@ -69,22 +70,46 @@ function ShowData() {
   const { confirm } = Modal;
 
   const UpdateDataStudent = (record) => {
-    const data = record.path_image;
+    const plate = record.path_image;
+    const card = record.image_card;
     const upload_by = record.upload_by;
-    var str = data.replaceAll("/", "-");
-    if (upload_by === "video") {
-      setPlateImageShow(`${url}/api/data/${str}`);
-      setPlateImage(`${url}/api/data/${str}`);
-    } else if (upload_by === "image") {
-      setPlateImageShow(`${url}/api/data/image/${str}`);
-      setPlateImage(`${url}/api/data/image/${str}`);
-    } else if (upload_by === "web") {
-      setPlateImageShow(`${url}/api/data/uploadbyweb/${str}`);
-      setPlateImage(`${url}/api/data/uploadbyweb/${str}`);
-    } else if (upload_by === "app") {
-      setPlateImageShow(`${url}/api/data/uploadbyapp/${str}`);
-      setPlateImage(`${url}/api/data/uploadbyapp/${str}`);
+    if (plate) {
+      var str = plate.replaceAll("/", "-");
+      if (upload_by === "video") {
+        setPlateImageShow(`${url}/api/data/${str}`);
+        setPlateImage(`${url}/api/data/${str}`);
+      } else if (upload_by === "image") {
+        setPlateImageShow(`${url}/api/data/image/${str}`);
+        setPlateImage(`${url}/api/data/image/${str}`);
+      } else if (upload_by === "web") {
+        setPlateImageShow(`${url}/api/data/uploadbyweb/${str}`);
+        setPlateImage(`${url}/api/data/uploadbyweb/${str}`);
+      } else if (upload_by === "app") {
+        setPlateImageShow(`${url}/api/data/uploadbyapp/${str}`);
+        setPlateImage(`${url}/api/data/uploadbyapp/${str}`);
+      }
+    } else if (card) {
+      var str_card = card.replaceAll("/", "-");
+      if (upload_by === "web") {
+        setPlateImageShow(`${url}/api/data/uploadbyweb/${str_card}`);
+      }
+    } else {
+      str = "/";
+      if (upload_by === "video") {
+        setPlateImageShow(`${url}/api/data/${str}`);
+        setPlateImage(`${url}/api/data/${str}`);
+      } else if (upload_by === "image") {
+        setPlateImageShow(`${url}/api/data/image/${str}`);
+        setPlateImage(`${url}/api/data/image/${str}`);
+      } else if (upload_by === "web") {
+        setPlateImageShow(`${url}/api/data/uploadbyweb/${str}`);
+        setPlateImage(`${url}/api/data/uploadbyweb/${str}`);
+      } else if (upload_by === "app") {
+        setPlateImageShow(`${url}/api/data/uploadbyapp/${str}`);
+        setPlateImage(`${url}/api/data/uploadbyapp/${str}`);
+      }
     }
+
     console.log("Update => ", record);
     setCheckAddOrUpdate(false);
     setPlateId(record._id);
@@ -112,7 +137,7 @@ function ShowData() {
       title: "ลำดับ",
       dataIndex: "number",
       key: "number",
-      render: (text, record, index) => <>{index + 1}</>,
+      render: (text, record, index) => <>{filteredData.indexOf(record) + 1}</>,
     },
     {
       title: "ชื่อ-นามสกุล",
@@ -194,13 +219,138 @@ function ShowData() {
       },
     },
     {
-      title: "image",
+      title: "รูปถ่ายแผ่นป้ายทะเบียน",
       dataIndex: "image",
       key: "image",
       render: (res, record) => {
         console.log("TEST RECORD", record.path_image);
         const data = record.path_image;
         const upload_by = record.upload_by;
+        if (data == null) {
+          return <p>-</p>;
+        }
+        if (upload_by === "video") {
+          var str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "image") {
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/image/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "web") {
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/uploadbyweb/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "app") {
+          console.log("TEST => ", data);
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/uploadbyapp/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else {
+          return <p>ไม่มีรูปตัวอย่าง</p>;
+        }
+      },
+    },
+    {
+      title: "รูปถ่ายบัตรนิสิต",
+      dataIndex: "cardimage",
+      key: "cardimage",
+      render: (res, record) => {
+        console.log("TEST RECORD", record.image_card);
+        const data = record.image_card;
+        const upload_by = record.upload_by;
+        if (data == null) {
+          return <p>-</p>;
+        }
+        if (upload_by === "video") {
+          var str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "image") {
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/image/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "web") {
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/uploadbyweb/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else if (upload_by === "app") {
+          console.log("TEST => ", data);
+          str = data.replaceAll("/", "-");
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${url}/api/data/uploadbyapp/${str}`}
+            >
+              ดูตัวอย่าง
+            </a>
+          );
+        } else {
+          return <p>ไม่มีรูปตัวอย่าง</p>;
+        }
+      },
+    },
+    {
+      title: "รูปถ่ายเหตุการณ์",
+      dataIndex: "eventimage",
+      key: "eventimage",
+      render: (res, record) => {
+        console.log("TEST RECORD", record.image_event);
+        const data = record.image_event;
+        const upload_by = record.upload_by;
+        if (data == null) {
+          return <p>-</p>;
+        }
         if (upload_by === "video") {
           var str = data.replaceAll("/", "-");
           return (
@@ -850,7 +1000,7 @@ function ShowData() {
             columns={columns}
             dataSource={filteredData}
             pagination={{ pageSize: 10 }}
-            rowKey="number"
+            rowKey={() => uuid()}
           />
         </div>
       </div>

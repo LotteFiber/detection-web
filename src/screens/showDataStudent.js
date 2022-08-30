@@ -102,7 +102,7 @@ function ShowDataStudent() {
       title: "ลำดับ",
       dataIndex: "number",
       key: "number",
-      render: (text, record, index) => <>{index + 1}</>,
+      render: (text, record, index) => <>{filteredData.indexOf(record) + 1}</>,
     },
     {
       title: "ชื่อ-นามสกุล",
@@ -213,6 +213,7 @@ function ShowDataStudent() {
     } else {
       console.log("1");
       var result;
+      // console.log(result);
       if (checkAddOrUpdate) {
         result = await SignUpFunc(
           first_name,

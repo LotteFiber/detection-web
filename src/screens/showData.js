@@ -577,13 +577,7 @@ function ShowData() {
         plateBottom,
         plateId
       );
-      if (
-        !plateImage ||
-        !plateTop ||
-        !plateCenter ||
-        !plateBottom ||
-        !plateId
-      ) {
+      if (!plateTop || !plateCenter || !plateBottom || !plateId) {
         setLoading(false);
         openNotificationNofileErrorUpload("error");
         return console.log("ไม่มีไฟล์");

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { url } from '../key'
+import { url } from "../key";
 
 export async function SignInFunc(username, password) {
   try {
@@ -14,15 +14,13 @@ export async function SignInFunc(username, password) {
     })
       .then(async (data) => {
         console.log(data);
-        return data
+        return data;
       })
       .catch(async (error) => {
         return error.response;
       });
-    return result
+    return result;
   } catch {
-    return "error"
+    return "error";
   }
 }
-
-

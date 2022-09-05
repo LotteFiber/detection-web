@@ -26,8 +26,8 @@ const SigninScreen = () => {
       var result = await SignInFunc(username, password);
       await console.log(result);
       if (result.status === 200) {
-        localStorage.setItem("jwt",result.data.token)
-        localStorage.setItem("user", username)
+        localStorage.setItem("jwt", result.data.token);
+        localStorage.setItem("user", username);
         success("กำลังเข้าสู่ระบบ");
         history.push("/home");
       } else if (result.status === 422) {

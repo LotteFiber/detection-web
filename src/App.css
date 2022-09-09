@@ -28,6 +28,12 @@
   height: 100%;
 }
 
+.ant-table-wrapper {
+  clear: both;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */

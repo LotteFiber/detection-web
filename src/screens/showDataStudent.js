@@ -8,6 +8,8 @@ import {
   Modal,
   Spin,
   notification,
+  Row,
+  Col,
 } from "antd";
 import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import LoadingComponent from "../components/loading";
@@ -453,48 +455,52 @@ function ShowDataStudent() {
           />
         )}
 
-        <div className="nu-student-header">
-          <div className="nu-student-header-1">
+        <Row>
+          <Modal
+            title="อัพโหลดไฟล์ CSV"
+            centered
+            visible={visibleCSV}
+            onOk={uploadHandles}
+            onCancel={() => (loading ? null : setVisibleCSV(false))}
+            width={1000}
+            cancelText={loading ? "กำลังอัพโหลด" : "ย้อนกลับ"}
+            okText={loading ? "กำลังอัพโหลด" : "อัพโหลด"}
+          >
+            <Spin spinning={loading} tip="กำลังอัพโหลด กรุณาห้ามกดออก">
+              <input
+                type="file"
+                id="myFile"
+                name="filename"
+                onChange={(e) => setFileUpload(e.target.files[0])}
+              />
+            </Spin>
+          </Modal>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
             <Button
               type="primary"
               shape="round"
               icon={<PlusOutlined />}
               size="large"
               onClick={() => insertDataStudent()}
-              style={{ marginRight: 5 }}
+              style={{ marginRight: 5, marginTop: 18 }}
             >
               เพิ่มข้อมูล
             </Button>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={8} xl={8}>
             <Button
               type="primary"
               shape="round"
               icon={<PlusOutlined />}
               size="large"
               onClick={() => setVisibleCSV(true)}
+              style={{ marginTop: 18 }}
             >
               CSV File
             </Button>
-            <Modal
-              title="อัพโหลดไฟล์ CSV"
-              centered
-              visible={visibleCSV}
-              onOk={uploadHandles}
-              onCancel={() => (loading ? null : setVisibleCSV(false))}
-              width={1000}
-              cancelText={loading ? "กำลังอัพโหลด" : "ย้อนกลับ"}
-              okText={loading ? "กำลังอัพโหลด" : "อัพโหลด"}
-            >
-              <Spin spinning={loading} tip="กำลังอัพโหลด กรุณาห้ามกดออก">
-                <input
-                  type="file"
-                  id="myFile"
-                  name="filename"
-                  onChange={(e) => setFileUpload(e.target.files[0])}
-                />
-              </Spin>
-            </Modal>
-          </div>
-          <div className="nu-student-header-2">
+          </Col>
+
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             <div className="nu-data-search">
               <h3 className="nu-data-search-text">ชื่อ-นามสกุล</h3>
               <Search
@@ -505,6 +511,8 @@ function ShowDataStudent() {
                 onChange={(event) => handleSearchName(event)}
               />
             </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             <div className="nu-data-search">
               <h3 className="nu-data-search-text">รหัสนิสิต</h3>
               <Search
@@ -514,6 +522,8 @@ function ShowDataStudent() {
                 onChange={(event) => handleSearchStudentID(event)}
               />
             </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
             <div className="nu-data-search">
               <h3 className="nu-data-search-text">คณะ</h3>
               <Select
@@ -547,6 +557,8 @@ function ShowDataStudent() {
                 <Option value="วิทยาลัยนานาชาติ">วิทยาลัยนานาชาติ</Option>
               </Select>
             </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={2} xl={2}>
             <div className="nu-data-search">
               <h3 className="nu-data-search-text">ชั้นปี</h3>
               <Select
@@ -577,8 +589,9 @@ function ShowDataStudent() {
                 <Option value="55">55</Option>
               </Select>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
+
         <div className="nu-data-table">
           <Table
             className="nu-data-table-table"

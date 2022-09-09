@@ -11,6 +11,8 @@ import {
   Spin,
   notification,
   Tag,
+  Row,
+  Col,
 } from "antd";
 import moment from "moment";
 import { url } from "../key";
@@ -409,14 +411,18 @@ function ShowData() {
         if (record.verify_status) {
           return (
             <>
-              <Button type="dashed" onClick={() => UpdateDataStudent(record)}>
+              <Button
+                type="dashed"
+                onClick={() => UpdateDataStudent(record)}
+                style={{ marginRight: 5, marginBottom: 3 }}
+              >
                 แก้ไข
               </Button>
               <Button
                 type="primary"
                 disabled
                 onClick={() => updateVerify(record._id)}
-                style={{ marginLeft: 5 }}
+                style={{ marginRight: 5, marginBottom: 3 }}
               >
                 สำเร็จ
               </Button>
@@ -424,7 +430,7 @@ function ShowData() {
                 type="primary"
                 onClick={() => showDeleteConfirm(record._id)}
                 danger
-                style={{ marginLeft: 5 }}
+                style={{ marginRight: 5, marginBottom: 3 }}
               >
                 ลบ
               </Button>
@@ -433,13 +439,17 @@ function ShowData() {
         } else {
           return (
             <>
-              <Button type="dashed" onClick={() => UpdateDataStudent(record)}>
+              <Button
+                type="dashed"
+                onClick={() => UpdateDataStudent(record)}
+                style={{ marginRight: 5, marginBottom: 3 }}
+              >
                 แก้ไข
               </Button>
               <Button
                 type="primary"
                 onClick={() => updateVerifyHandle(record._id)}
-                style={{ marginLeft: 5 }}
+                style={{ marginRight: 5, marginBottom: 3 }}
               >
                 ยืนยัน
               </Button>
@@ -447,7 +457,7 @@ function ShowData() {
                 type="primary"
                 onClick={() => showDeleteConfirm(record._id)}
                 danger
-                style={{ marginLeft: 5 }}
+                style={{ marginRight: 5, marginBottom: 3 }}
               >
                 ลบ
               </Button>
@@ -800,8 +810,71 @@ function ShowData() {
     return (
       <div className="nu-body-ctn-4">
         <LoadingComponent isLoading={isLoading} />
-        <div className="nu-data-header">
-          <div className="nu-student-header-1">
+        <Row>
+          {checkAddOrUpdate ? (
+            <DrawerComponent
+              onClose={onClose}
+              visible={visibleDrawer}
+              setVisible={setVisibleDrawer}
+              setPlateTop={setPlateTop}
+              setPlateCenter={setPlateCenter}
+              setPlateBottom={setPlateBottom}
+              setPlateImage={setPlateImage}
+              plateTop={plateTop}
+              plateCenter={plateCenter}
+              plateBottom={plateBottom}
+              plateImage={plateImage}
+              plateuploadby={plateuploadby}
+              titletext="เพิ่มข้อมูล"
+              uploadDataHandles={uploadDataHandles}
+              updateDataHandles={updateDataHandles}
+              plateImageShow={plateImageShow}
+              setPlateImageShow={setPlateImageShow}
+              checkAddOrUpdate={checkAddOrUpdate}
+            />
+          ) : (
+            <DrawerComponent
+              onClose={onClose}
+              visible={visibleDrawer}
+              setVisible={setVisibleDrawer}
+              setPlateTop={setPlateTop}
+              setPlateCenter={setPlateCenter}
+              setPlateBottom={setPlateBottom}
+              setPlateImage={setPlateImage}
+              plateTop={plateTop}
+              plateCenter={plateCenter}
+              plateBottom={plateBottom}
+              plateImage={plateImage}
+              plateuploadby={plateuploadby}
+              plateImageShow={plateImageShow}
+              setPlateImageShow={setPlateImageShow}
+              uploadDataHandles={uploadDataHandles}
+              updateDataHandles={updateDataHandles}
+              checkAddOrUpdate={checkAddOrUpdate}
+              titletext="แก้ไขข้อมูล"
+            />
+          )}
+          <Modal
+            title="อัพโหลดรูปภาพ"
+            centered
+            visible={visible}
+            onOk={() => uploadHandles()}
+            onCancel={() => (loading ? null : setVisible(false))}
+            width={1000}
+            cancelText={loading ? "กำลังอัพโหลด" : "ย้อนกลับ"}
+            okText={loading ? "กำลังอัพโหลด" : "อัพโหลด"}
+          >
+            <Spin spinning={false} tip="กำลังอัพโหลด กรุณาห้ามกดออก">
+              <input
+                type="file"
+                id="myFile"
+                name="filename"
+                onChange={(e) => setFileUpload(e.target.files)}
+                multiple
+              />
+            </Spin>
+          </Modal>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             {statusImage ? (
               <Button
                 type="primary"
@@ -810,6 +883,7 @@ function ShowData() {
                 size="large"
                 onClick={() => setVisible(true)}
                 disabled
+                style={{ marginTop: 18 }}
               >
                 โปรแกรมกำลังทำงาน
               </Button>
@@ -820,174 +894,125 @@ function ShowData() {
                 icon={<PlusOutlined />}
                 size="large"
                 onClick={() => setVisible(true)}
+                style={{ marginTop: 18 }}
               >
                 เก็บข้อมูลด้วยภาพ
               </Button>
             )}
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             <Button
               type="primary"
               shape="round"
               icon={<PlusOutlined />}
               size="large"
               onClick={() => UploadDataStudent()}
-              style={{ marginLeft: 5 }}
+              style={{ marginLeft: 5, marginTop: 18 }}
             >
               เก็บข้อมูลด้วยตัวเอง
             </Button>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={2} xl={2}>
             <Button
               type="primary"
               shape="round"
               icon={<ExportOutlined />}
               size="large"
               href={`${url}/api/exportxlsx?first_name=${searchName}&faculty=${searchFaculty}&year=${searchYear}&start_date=${searchDate_start}&end_date=${searchDate_end}`}
-              style={{ marginLeft: 5 }}
+              style={{ marginLeft: 5, marginTop: 18 }}
             >
               นำออกข้อมูล
             </Button>
-            {checkAddOrUpdate ? (
-              <DrawerComponent
-                onClose={onClose}
-                visible={visibleDrawer}
-                setVisible={setVisibleDrawer}
-                setPlateTop={setPlateTop}
-                setPlateCenter={setPlateCenter}
-                setPlateBottom={setPlateBottom}
-                setPlateImage={setPlateImage}
-                plateTop={plateTop}
-                plateCenter={plateCenter}
-                plateBottom={plateBottom}
-                plateImage={plateImage}
-                plateuploadby={plateuploadby}
-                titletext="เพิ่มข้อมูล"
-                uploadDataHandles={uploadDataHandles}
-                updateDataHandles={updateDataHandles}
-                plateImageShow={plateImageShow}
-                setPlateImageShow={setPlateImageShow}
-                checkAddOrUpdate={checkAddOrUpdate}
+          </Col>
+          <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
+            <div className="nu-data-search">
+              <h3 className="nu-data-search-text">ชื่อ-นามสกุล</h3>
+              <Search
+                placeholder="ชื่อ-นามสกุล"
+                onSearch={(value) => console.log(value)}
+                style={{ width: 200 }}
+                className="nu-data-search-ip"
+                onChange={(event) => handleSearchName(event)}
               />
-            ) : (
-              <DrawerComponent
-                onClose={onClose}
-                visible={visibleDrawer}
-                setVisible={setVisibleDrawer}
-                setPlateTop={setPlateTop}
-                setPlateCenter={setPlateCenter}
-                setPlateBottom={setPlateBottom}
-                setPlateImage={setPlateImage}
-                plateTop={plateTop}
-                plateCenter={plateCenter}
-                plateBottom={plateBottom}
-                plateImage={plateImage}
-                plateuploadby={plateuploadby}
-                plateImageShow={plateImageShow}
-                setPlateImageShow={setPlateImageShow}
-                uploadDataHandles={uploadDataHandles}
-                updateDataHandles={updateDataHandles}
-                checkAddOrUpdate={checkAddOrUpdate}
-                titletext="แก้ไขข้อมูล"
-              />
-            )}
-            <Modal
-              title="อัพโหลดรูปภาพ"
-              centered
-              visible={visible}
-              onOk={() => uploadHandles()}
-              onCancel={() => (loading ? null : setVisible(false))}
-              width={1000}
-              cancelText={loading ? "กำลังอัพโหลด" : "ย้อนกลับ"}
-              okText={loading ? "กำลังอัพโหลด" : "อัพโหลด"}
-            >
-              <Spin spinning={false} tip="กำลังอัพโหลด กรุณาห้ามกดออก">
-                <input
-                  type="file"
-                  id="myFile"
-                  name="filename"
-                  onChange={(e) => setFileUpload(e.target.files)}
-                  multiple
+            </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={2} xl={2}>
+            <div className="nu-data-search">
+              <h3 className="nu-data-search-text">ชั้นปี</h3>
+              <Select
+                showSearch
+                style={{ width: 100 }}
+                placeholder="รหัสชั้นปี"
+                optionFilterProp="children"
+                onChange={(event) => {
+                  handleSearchYear(event);
+                }}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSearch={onSearch}
+              >
+                <Option value="">-ไม่ระบุ-</Option>
+                <Option value="63">63</Option>
+                <Option value="62">62</Option>
+                <Option value="61">61</Option>
+                <Option value="60">60</Option>
+                <Option value="59">59</Option>
+                <Option value="58">58</Option>
+              </Select>
+            </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
+            <div className="nu-data-search">
+              <h3 className="nu-data-search-text">คณะ</h3>
+              <Select
+                showSearch
+                style={{ width: 150 }}
+                placeholder="คณะ"
+                optionFilterProp="children"
+                onChange={(event) => handleSearchFaculty(event)}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSearch={onSearch}
+              >
+                <Option value="">-----ไม่ระบุ-----</Option>
+                <Option value="เกษตรศาสตร์">คณะเกษตรศาสตร์</Option>
+                <Option value="วิทยาศาสตร์">คณะวิทยาศาสตร์</Option>
+                <Option value="วิศวกรรมศาสตร์">คณะวิศวกรรมศาสตร์</Option>
+                <Option value="สถาปัตยกรรมศาสตร์">คณะสถาปัตยกรรมศาสตร์</Option>
+                <Option value="ทันตแพทยศาสตร์">คณะทันตแพทยศาสตร์</Option>
+                <Option value="แพทยศาสตร์">คณะแพทยศาสตร์</Option>
+                <Option value="พยาบาลศาสตร์">คณะพยาบาลศาสตร์</Option>
+                <Option value="เภสัชศาสตร์">คณะเภสัชศาสตร์</Option>
+                <Option value="วิทยาศาสตร์การแพทย์">
+                  คณะวิทยาศาสตร์การแพทย์
+                </Option>
+                <Option value="สหเวชศาสตร์">คณะสหเวชศาสตร์</Option>
+                <Option value="สาธารณสุขศาสตร์">คณะสาธารณสุขศาสตร์</Option>
+                <Option value="มนุษยศาสตร์">คณะมนุษยศาสตร์</Option>
+                <Option value="นิติศาสตร์">คณะนิติศาสตร์</Option>
+                <Option value="บริหารธุรกิจ">
+                  คณะบริหารธุรกิจ เศรษฐศาสตร์และการสื่อสาร
+                </Option>
+                <Option value="ศึกษาศาสตร์">คณะศึกษาศาสตร์</Option>
+                <Option value="สังคมศาสตร์">คณะสังคมศาสตร์</Option>
+                <Option value="วิทยาลัยนานาชาติ">วิทยาลัยนานาชาติ</Option>
+              </Select>
+            </div>
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
+            <div className="nu-data-search">
+              <h3 className="nu-data-search-text">วันเดือนปี</h3>
+              <Space direction="vertical" size={10}>
+                <RangePicker
+                  onChange={(event) => handleSearchDate(event)}
+                  className="nu-data-search-date"
                 />
-              </Spin>
-            </Modal>
-          </div>
-          <div className="nu-data-search">
-            <h3 className="nu-data-search-text">ชื่อ-นามสกุล</h3>
-            <Search
-              placeholder="ชื่อ-นามสกุล"
-              onSearch={(value) => console.log(value)}
-              style={{ width: 200 }}
-              className="nu-data-search-ip"
-              onChange={(event) => handleSearchName(event)}
-            />
-          </div>
-          <div className="nu-data-search">
-            <h3 className="nu-data-search-text">ชั้นปี</h3>
-            <Select
-              showSearch
-              style={{ width: 100 }}
-              placeholder="รหัสชั้นปี"
-              optionFilterProp="children"
-              onChange={(event) => {
-                handleSearchYear(event);
-              }}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
-            >
-              <Option value="">-ไม่ระบุ-</Option>
-              <Option value="63">63</Option>
-              <Option value="62">62</Option>
-              <Option value="61">61</Option>
-              <Option value="60">60</Option>
-              <Option value="59">59</Option>
-              <Option value="58">58</Option>
-            </Select>
-          </div>
-          <div className="nu-data-search">
-            <h3 className="nu-data-search-text">คณะ</h3>
-            <Select
-              showSearch
-              style={{ width: 150 }}
-              placeholder="คณะ"
-              optionFilterProp="children"
-              onChange={(event) => handleSearchFaculty(event)}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
-            >
-              <Option value="">-----ไม่ระบุ-----</Option>
-              <Option value="เกษตรศาสตร์">คณะเกษตรศาสตร์</Option>
-              <Option value="วิทยาศาสตร์">คณะวิทยาศาสตร์</Option>
-              <Option value="วิศวกรรมศาสตร์">คณะวิศวกรรมศาสตร์</Option>
-              <Option value="สถาปัตยกรรมศาสตร์">คณะสถาปัตยกรรมศาสตร์</Option>
-              <Option value="ทันตแพทยศาสตร์">คณะทันตแพทยศาสตร์</Option>
-              <Option value="แพทยศาสตร์">คณะแพทยศาสตร์</Option>
-              <Option value="พยาบาลศาสตร์">คณะพยาบาลศาสตร์</Option>
-              <Option value="เภสัชศาสตร์">คณะเภสัชศาสตร์</Option>
-              <Option value="วิทยาศาสตร์การแพทย์">
-                คณะวิทยาศาสตร์การแพทย์
-              </Option>
-              <Option value="สหเวชศาสตร์">คณะสหเวชศาสตร์</Option>
-              <Option value="สาธารณสุขศาสตร์">คณะสาธารณสุขศาสตร์</Option>
-              <Option value="มนุษยศาสตร์">คณะมนุษยศาสตร์</Option>
-              <Option value="นิติศาสตร์">คณะนิติศาสตร์</Option>
-              <Option value="บริหารธุรกิจ">
-                คณะบริหารธุรกิจ เศรษฐศาสตร์และการสื่อสาร
-              </Option>
-              <Option value="ศึกษาศาสตร์">คณะศึกษาศาสตร์</Option>
-              <Option value="สังคมศาสตร์">คณะสังคมศาสตร์</Option>
-              <Option value="วิทยาลัยนานาชาติ">วิทยาลัยนานาชาติ</Option>
-            </Select>
-          </div>
+              </Space>
+            </div>
+          </Col>
+        </Row>
 
-          <div className="nu-data-search">
-            <h3 className="nu-data-search-text">วันเดือนปี</h3>
-            <Space direction="vertical" size={10}>
-              <RangePicker
-                onChange={(event) => handleSearchDate(event)}
-                className="nu-data-search-date"
-              />
-            </Space>
-          </div>
-        </div>
         <div className="nu-data-table">
           <Table
             className="nu-data-table-table"

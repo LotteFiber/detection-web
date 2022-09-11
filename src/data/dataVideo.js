@@ -5,11 +5,10 @@ import {
   CloseCircleOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { url } from "../key";
 import { startProgramDetection } from "../function/getVideo";
 import moment from "moment";
 
-// const { confirm } = Modal;
+import { url } from "../key";
 
 export const columns = [
   {
@@ -54,7 +53,11 @@ export const columns = [
     key: "video_file",
     render: (data) => {
       return (
-        <a target="_blank" rel="noopener noreferrer" href={`${url}/api/video/${data}`}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${url}/api/video/${data}`}
+        >
           ดูตัวอย่าง
         </a>
       );
@@ -147,7 +150,11 @@ export const columns_processing = [
     key: "video_file",
     render: (data) => {
       return (
-        <a target="_blank" rel="noopener noreferrer" href={`${url}/api/video/${data}`}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${url}/api/video/${data}`}
+        >
           ดูตัวอย่าง
         </a>
       );

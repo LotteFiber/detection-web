@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import { url } from "../key";
 import { Button, Tag } from "antd";
 import {
   CheckCircleOutlined,
@@ -10,6 +9,7 @@ import {
   ClockCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
+import { url } from "../key";
 
 export const columns = [
   {
@@ -112,10 +112,8 @@ export const columns = [
       console.log(record);
       const data = record.image_card;
       const upload_by = record.upload_by;
-      if (data == null) { 
-        return (
-          <p>N/A</p>
-        );
+      if (data == null) {
+        return <p>N/A</p>;
       }
       var str = data.replaceAll("/", "-");
       if (upload_by === "video") {
@@ -154,10 +152,8 @@ export const columns = [
       const data = record.image_event;
       const upload_by = record.upload_by;
       var str = data.replaceAll("/", "-");
-      if (data == null) { 
-        return (
-          <p>N/A</p>
-        );
+      if (data == null) {
+        return <p>N/A</p>;
       }
       var str = data.replaceAll("/", "-");
       if (upload_by === "video") {

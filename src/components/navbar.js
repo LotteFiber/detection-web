@@ -28,7 +28,7 @@ function Child() {
                   history.push("/home");
                 }}
               >
-                ผลสรุปผู้ไม่สวมหมวกนิรภัย
+                ผลสรุปข้อมูล
               </Button>
             ) : (
               <Button
@@ -37,7 +37,7 @@ function Child() {
                   history.push("/home");
                 }}
               >
-                ผลสรุปผู้ไม่สวมหมวกนิรภัย
+                ผลสรุปข้อมูล
               </Button>
             )}
           </div>

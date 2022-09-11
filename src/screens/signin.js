@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import { Button, Input, message } from "antd";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
-// import axios from "axios";
 import Lottie from "react-lottie";
 import animationData from "../lotties/motor_bike.json";
 import { useHistory } from "react-router-dom";

@@ -430,7 +430,7 @@ function ShowData() {
                 type="primary"
                 onClick={() => showDeleteConfirm(record._id)}
                 danger
-                style={{ marginRight: 5, marginBottom: 3 }}
+                style={{ marginBottom: 3, width: 61 }}
               >
                 ลบ
               </Button>
@@ -457,7 +457,7 @@ function ShowData() {
                 type="primary"
                 onClick={() => showDeleteConfirm(record._id)}
                 danger
-                style={{ marginRight: 5, marginBottom: 3 }}
+                style={{ marginBottom: 3, width: 61 }}
               >
                 ลบ
               </Button>
@@ -874,7 +874,7 @@ function ShowData() {
               />
             </Spin>
           </Modal>
-          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
             {statusImage ? (
               <Button
                 type="primary"
@@ -900,7 +900,7 @@ function ShowData() {
               </Button>
             )}
           </Col>
-          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
             <Button
               type="primary"
               shape="round"
@@ -912,7 +912,7 @@ function ShowData() {
               เก็บข้อมูลด้วยตัวเอง
             </Button>
           </Col>
-          <Col xs={24} sm={12} md={12} lg={2} xl={2}>
+          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
             <Button
               type="primary"
               shape="round"

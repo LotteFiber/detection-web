@@ -24,7 +24,7 @@ function DrawerComponent({
     <Drawer
       title={titletext}
       placement="right"
-      closable={false}
+      closable={true}
       onClose={onClose}
       visible={visible}
     >

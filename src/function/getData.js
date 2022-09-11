@@ -78,6 +78,7 @@ export const getResult = async () => {
       headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
     })
       .then(async (data) => {
+        console.log(data);
         return data;
       })
       .catch((error) => {

@@ -151,7 +151,7 @@ function UploadVideo() {
               เพิ่มวิดีโอ
             </Button>
           </Col>
-          <Col xs={24} sm={12} md={12} lg={17} xl={17}>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             {status_program ? (
               <div className="nu-video-status" style={{ marginTop: 18 }}>
                 <Spin indicator={antIcon} />
@@ -168,7 +168,8 @@ function UploadVideo() {
               </div>
             )}
           </Col>
-          <Col xs={24} sm={12} md={12} lg={3} xl={3}>
+          <Col xs={24} sm={24} md={24} lg={13} xl={13}></Col>
+          <Col xs={24} sm={12} md={12} lg={4} xl={4}>
             <div className="nu-data-search">
               <h3 className="nu-data-search-text">ชื่อ-วิดีโอ</h3>
               <Search

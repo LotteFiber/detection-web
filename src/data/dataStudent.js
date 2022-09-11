@@ -10,7 +10,6 @@ function showDeleteConfirm(id) {
   confirm({
     title: "แน่ใจไหมว่าต้องการลบข้อมูลของบุคคลนี้",
     icon: <ExclamationCircleOutlined />,
-    content: "นายภานุวิชญ์  มากมี",
     okText: "ใช่",
     okType: "danger",
     cancelText: "ไม่ใช่",

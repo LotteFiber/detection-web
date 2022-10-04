@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Space } from "antd";
+import { Modal, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { DeleteDataStudent } from "../function/signupDataStudent";
 

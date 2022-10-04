@@ -20,8 +20,6 @@ import {
   putUpdateDataStudent,
 } from "../function/signupDataStudent";
 import DrawerComponent from "../components/drawer";
-// import ReactFileReader from 'react-file-reader';
-// import utf8 from "utf8"
 import { uploadCSV } from "../function/uploadData";
 
 const { confirm } = Modal;

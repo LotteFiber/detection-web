@@ -1,14 +1,35 @@
 import React from "react";
-import { Button, Tag } from "antd";
+import { Button, Tag, Modal } from "antd";
 import {
   SyncOutlined,
   CloseCircleOutlined,
   CheckCircleOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { startProgramDetection } from "../function/getVideo";
+import { DeleteVideo, startProgramDetection } from "../function/getVideo";
 import moment from "moment";
 
 import { url } from "../key";
+
+const { confirm } = Modal;
+
+function showDeleteConfirm(id) {
+  console.log(id);
+  confirm({
+    title: "แน่ใจไหมว่าต้องการลบข้อมูลของบุคคลนี้",
+    icon: <ExclamationCircleOutlined />,
+    okText: "ใช่",
+    okType: "danger",
+    cancelText: "ไม่ใช่",
+    onOk() {
+      const result = DeleteVideo(id);
+      console.log("OK", result);
+    },
+    onCancel() {
+      console.log("Cancel");
+    },
+  });
+}
 
 export const columns = [
   {
@@ -101,6 +122,13 @@ export const columns = [
           onClick={() => startProgramDetection(record)}
         >
           เริ่มประมวลผล
+        </Button>
+        <Button
+          type="primary"
+          onClick={() => showDeleteConfirm(record._id)}
+          danger
+        >
+          ลบ
         </Button>
       </>
     ),

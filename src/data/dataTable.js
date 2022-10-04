@@ -1,14 +1,8 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 import moment from "moment";
 import { Button, Tag } from "antd";
-import {
-  CheckCircleOutlined,
-  SyncOutlined,
-  CloseCircleOutlined,
-  ExclamationCircleOutlined,
-  ClockCircleOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { url } from "../key";
 
 export const columns = [

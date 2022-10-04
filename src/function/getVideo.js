@@ -165,3 +165,29 @@ export const startProgramImageDetection = async () => {
     return "error";
   }
 };
+
+export const DeleteVideo = async (id) => {
+  try {
+    let data = {
+      id: id,
+    };
+    const result = await axios({
+      method: "delete",
+      url: `${url}/api/video/delete`,
+      headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      data,
+    })
+      .then((data) => {
+        console.log(data);
+        window.location.reload(false);
+        return data;
+      })
+      .catch((error) => {
+        console.log(error.response);
+        return error.response;
+      });
+    return result;
+  } catch {
+    return "error";
+  }
+};
